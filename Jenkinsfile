@@ -6,6 +6,7 @@ pipeline {
             agent{
                 docker{
                     image 'node:18-alpine'
+                    reuseNode true
                 }
             }
             steps {
@@ -32,6 +33,11 @@ pipeline {
                     npm test
                 '''
             }
+        }
+    }
+    post {
+        always {
+            junit 'test-results/junit.xml'
         }
     }
 }
